@@ -9,36 +9,44 @@ Este proyecto utiliza un sensor ultrasónico HC-SR04 con Arduino IDE para medir 
 ## 💻 Código Arduino
 
 ```cpp
-// Definir pines
-const int trigPin = 7;
-const int echoPin = 8;
+#define TRIG 9
+#define ECHO 10
+#define LED 13
+
+long duracion;
+int distancia;
 
 void setup() {
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  pinMode(LED, OUTPUT);
   Serial.begin(9600);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
 }
 
 void loop() {
-  // Enviar pulso
-  digitalWrite(trigPin, LOW);
+
+  digitalWrite(TRIG, LOW);
   delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
+
+  digitalWrite(TRIG, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  digitalWrite(TRIG, LOW);
 
-  // Leer tiempo de respuesta
-  long duration = pulseIn(echoPin, HIGH);
-  
-  // Calcular distancia (velocidad del sonido: 343 m/s)
-  float distance = duration * 0.0343 / 2;
+  duracion = pulseIn(ECHO, HIGH);
 
-  // Mostrar resultado
+  distancia = duracion * 0.034 / 2;
+
   Serial.print("Distancia: ");
-  Serial.print(distance);
+  Serial.print(distancia);
   Serial.println(" cm");
 
-  delay(1000);
+  if (distancia < 20) {
+    digitalWrite(LED, HIGH);
+  } else {
+    digitalWrite(LED, LOW);
+  }
+
+  delay(200);
 }
 ```
 
@@ -71,9 +79,6 @@ El sensor HC-SR04 se conecta al Arduino mediante:
 
 ## 🐛 Solución de Problemas
 - Si no ves lecturas, verifica las conexiones
-- Asegúrate de que los pines coincidan con el código (pin 7 y 8)
-- Prueba con diferentes velocidades de Serial (9600, 115200)
+- Asegúrate de que los pines coincidan con el código (pin 9 y 10)
+- Asegurate que la velocidad serial sea de 9600
 
-## 📚 Referencias
-- [Documentación HC-SR04](https://www.arduino.cc/)
-- [Arduino IDE](https://www.arduino.cc/en/software)
