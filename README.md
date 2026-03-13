@@ -40,3 +40,21 @@ void loop() {
 
   delay(1000);
 }
+
+## 🔧 Componentes Necesarios
+- Arduino (Uno, Nano, Mega, etc.)
+- Sensor Ultrasónico HC-SR04
+- Cables de conexión
+- Resistencias (si es necesario)
+
+## 📌 Conexiones
+El sensor HC-SR04 se conecta al Arduino mediante:
+- **VCC**: +5V
+- **GND**: GND
+- **TRIG**: Pin digital (por ejemplo, pin 7)
+- **ECHO**: Pin digital con entrada analógica (por ejemplo, pin 8)
+
+## 💻 Cómo Usar
+1. Carga el código Arduino en tu placa
+2. Abre el Monitor Serial a 9600 baudios
+3. El sensor mostrará las distancias medidas
